@@ -12,15 +12,15 @@ export class ChampionService {
     return `This action returns all champion`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} champion`;
   }
 
-  update(id: number, updateChampionDto: UpdateChampionDto) {
+  update(id: string, updateChampionDto: UpdateChampionDto) {
     return `This action updates a #${id} champion`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} champion`;
   }
 }
