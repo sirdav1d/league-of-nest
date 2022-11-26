@@ -11,12 +11,13 @@ datasource db {
 }
 
 model User {
-  id       String     @id @default(uuid())
-  name     String
-  email    String     @unique
-  password String
-  role     String
-  champion Champion[]
+  id        String     @id @default(uuid())
+  name      String
+  imageUrl  String
+  email     String     @unique
+  password  String
+  role      String
+  champions Champion[]
 }
 
 model Champion {
@@ -27,15 +28,15 @@ model Champion {
   difficulty  String
   imageUrl    String
   skills      Skill[]
-  user        User    @relation(fields: [userId], references: [id])
+  users       User    @relation(fields: [userId], references: [id])
   userId      String
 }
 
 model Skill {
-  id          String    @id @default(uuid())
-  name        String    @unique
+  id          String   @id @default(uuid())
+  name        String   @unique
   description String
   gameplayUrl String
-  champion    Champion? @relation(fields: [championId], references: [id])
+  champion    Champion @relation(fields: [championId], references: [id])
   championId  String
 }
