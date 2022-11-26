@@ -1,26 +1,93 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { IUser } from './entities/user.entity';
+import { handleError } from 'src/utils/error';
+import { Prisma, prisma, User } from '@prisma/client';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createUserDto: CreateUserDto) {
+    const user: IUser = createUserDto;
+    try {
+      const resp = await this.prisma.user.create({ data: user });
+      delete resp.password;
+      return resp;
+    } catch (e) {
+      handleError(e);
+    }
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    try {
+      const resp: IUser[] = await this.prisma.user.findMany();
+      if (resp.length < 1) {
+        return { message: 'Não há usuários cadastrados' };
+      } else {
+        return resp;
+      }
+    } catch (e) {
+      handleError(e);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    const validation = await this.isValidId(id);
+    if (validation) {
+      try {
+        const resp = await this.prisma.user.findUnique({ where: { id: id } });
+        delete resp.password;
+        return resp;
+      } catch (e) {
+        handleError(e);
+      }
+    } else {
+      return new NotFoundException('ID não encontrado');
+    }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const validation = await this.isValidId(id);
+    if (validation) {
+      const user = { ...updateUserDto };
+      try {
+        const resp = await this.prisma.user.update({
+          data: user,
+          where: { id: id },
+        });
+        delete resp.password;
+        return resp;
+      } catch (e) {
+        handleError(e);
+      }
+    } else {
+      return new NotFoundException('ID não encontrado');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const validation = await this.isValidId(id);
+    if (validation) {
+      await this.prisma.user.delete({ where: { id: id } });
+      return { message: 'Usuário deletado com sucesso' };
+    } else {
+      return new NotFoundException('ID não encontrado');
+    }
+  }
+
+  async isValidId(id: string) {
+    const resp = await this.prisma.user.findUnique({ where: { id: id } });
+    if (!resp) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
