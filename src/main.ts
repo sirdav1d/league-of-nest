@@ -9,7 +9,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('League of Nest')
-    .setDescription('Aplicação para relacionamento de usuários e champions')
+    .setDescription('Aplicação para relacionamento de users e champions')
     .setVersion('1.0.0')
     .build();
 
