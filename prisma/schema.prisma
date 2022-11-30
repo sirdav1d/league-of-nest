@@ -22,21 +22,20 @@ model User {
 }
 
 model Champion {
-  id          String  @id @default(uuid())
-  name        String  @unique
-  type        String
+  id          String   @id @default(uuid())
+  name        String   @unique
+  duty        Duty     @relation(fields: [dutyId], references: [id])
+  dutyId      String
   description String
   difficulty  String
   imageUrl    String
-  skills      Skill[]
+  skills      String[]
   users       User[]
 }
 
-model Skill {
-  id          String   @id @default(uuid())
-  name        String   @unique
+model Duty {
+  id          String     @id @default(uuid())
+  name        String     @unique
   description String
-  gameplayUrl String
-  champion    Champion @relation(fields: [championId], references: [id])
-  championId  String
+  champions   Champion[]
 }
