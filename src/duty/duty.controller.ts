@@ -22,16 +22,16 @@ export class DutyController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.dutyService.findOne(+id);
+    return this.dutyService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDutyDto: UpdateDutyDto) {
-    return this.dutyService.update(+id, updateDutyDto);
+    return this.dutyService.update(id, updateDutyDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.dutyService.remove(+id);
+    return this.dutyService.remove(id);
   }
 }

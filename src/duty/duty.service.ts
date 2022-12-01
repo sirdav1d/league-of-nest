@@ -1,26 +1,77 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/error';
 import { CreateDutyDto } from './dto/create-duty.dto';
 import { UpdateDutyDto } from './dto/update-duty.dto';
+import { IDuty } from './entities/duty.entity';
 
 @Injectable()
 export class DutyService {
-  create(createDutyDto: CreateDutyDto) {
-    return 'This action adds a new duty';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createDutyDto: CreateDutyDto) {
+    const duty: Prisma.DutyCreateInput = {
+      name: createDutyDto.name.toLocaleUpperCase(),
+      description: createDutyDto.description,
+    };
+
+    try {
+      const resp = await this.prisma.duty.create({ data: duty });
+      return resp;
+    } catch (e) {
+      handleError(e);
+    }
   }
 
-  findAll() {
-    return `This action returns all duty`;
+  async findAll() {
+    try {
+      const resp = await this.prisma.duty.findMany({
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          champions: {
+            select: { name: true, difficulty: true, imageUrl: true },
+          },
+        },
+      });
+      return resp;
+    } catch (e) {
+      handleError(e);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} duty`;
+  async findOne(id: string) {
+    try {
+      const resp = await this.prisma.duty.findUnique({ where: { id: id } });
+      return resp;
+    } catch (e) {
+      handleError(e);
+    }
   }
 
-  update(id: number, updateDutyDto: UpdateDutyDto) {
-    return `This action updates a #${id} duty`;
+  async update(id: string, updateDutyDto: UpdateDutyDto) {
+    try {
+      const resp = await this.prisma.duty.update({
+        data: {
+          name: updateDutyDto.name.toLocaleUpperCase(),
+          description: updateDutyDto.description,
+        },
+        where: { id: id },
+      });
+      return resp;
+    } catch (e) {
+      handleError(e);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} duty`;
+  async remove(id: string) {
+    try {
+      await this.prisma.duty.delete({ where: { id: id } });
+      return { message: 'Função apagada com sucesso' };
+    } catch (e) {
+      handleError(e);
+    }
   }
 }

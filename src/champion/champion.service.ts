@@ -10,23 +10,23 @@ import { IChampion } from './entities/champion.entity';
 export class ChampionService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createChampionDto: CreateChampionDto) {
+  async create(createChampionDto: CreateChampionDto) {
     const champion: Prisma.ChampionCreateInput = {
-      name: createChampionDto.name,
+      name: createChampionDto.name.toLocaleUpperCase(),
       description: createChampionDto.description,
       difficulty: createChampionDto.difficulty,
       imageUrl: createChampionDto.imageUrl,
-      skills: createChampionDto.skills,
+      skills: createChampionDto.skills.map((s)=>s.toLocaleUpperCase()),
       duty: {
         connectOrCreate: {
-          create: { name: createChampionDto.dutyName, description: 'dadafda' },
-          where: { id: createChampionDto.dutyName },
+          create: { name: createChampionDto.dutyName, description: '' },
+          where: { name: createChampionDto.dutyName },
         },
       },
       user: { connect: { id: createChampionDto.userId } },
     };
     try {
-      const resp = this.prisma.champion.create({
+      const resp = await this.prisma.champion.create({
         data: champion,
         select: {
           id: true,
@@ -43,12 +43,26 @@ export class ChampionService {
     } catch (e) {
       handleError(e);
     }
-
-    return 'This action adds a new champion';
   }
 
-  findAll() {
-    return `This action returns all champion`;
+  async findAll() {
+    try {
+      const resp = this.prisma.champion.findMany({
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          difficulty: true,
+          imageUrl: true,
+          skills: true,
+          duty:{select:{name:true}},
+          user:{select:{nickname:true}}
+        },
+      });
+      return resp;
+    } catch (e) {
+      handleError(e);
+    }
   }
 
   findOne(id: string) {
