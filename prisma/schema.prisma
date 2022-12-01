@@ -23,9 +23,9 @@ model User {
 
 model Champion {
   id          String   @id @default(uuid())
-  name        String   @unique
-  duty        Duty     @relation(fields: [dutyId], references: [id])
   dutyId      String
+  duty        Duty?    @relation(fields: [dutyId], references: [id])
+  name        String   @unique
   description String
   difficulty  String
   imageUrl    String
