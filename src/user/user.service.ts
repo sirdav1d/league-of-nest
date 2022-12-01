@@ -1,5 +1,5 @@
 import {
-  BadRequestException,
+
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -8,7 +8,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IUser } from './entities/user.entity';
 import { handleError } from 'src/utils/error';
-import { Prisma, prisma, User } from '@prisma/client';
 
 @Injectable()
 export class UserService {

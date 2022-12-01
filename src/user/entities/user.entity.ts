@@ -1,10 +1,6 @@
-export interface IUser {
+import { CreateUserDto } from "../dto/create-user.dto";
+import { IChampion } from "src/champion/entities/champion.entity";
+
+export interface IUser extends CreateUserDto {
   id?: string;
-  champions?: string[];
-  email: string;
-  name: string;
-  imageUrl: string;
-  nickname: string;
-  password: string;
-  role: string;
 }
