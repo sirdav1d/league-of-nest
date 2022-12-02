@@ -63,8 +63,6 @@ export class CreateChampionDto {
   })
   dutyName: string;
 
-  @IsNotEmpty()
-  @IsUUID(undefined, { each: true })
   @ApiProperty({
     description: 'ID do usuário que favoritou o campeão',
     example: '64d59ce3-921d-417b-898d-2326d959ca6b',

@@ -16,7 +16,7 @@ export class ChampionService {
       description: createChampionDto.description,
       difficulty: createChampionDto.difficulty,
       imageUrl: createChampionDto.imageUrl,
-      skills: createChampionDto.skills.map((s)=>s.toLocaleUpperCase()),
+      skills: createChampionDto.skills.toLocaleString().toLocaleUpperCase(),
       duty: {
         connectOrCreate: {
           create: { name: createChampionDto.dutyName, description: '' },
@@ -55,8 +55,8 @@ export class ChampionService {
           difficulty: true,
           imageUrl: true,
           skills: true,
-          duty:{select:{name:true}},
-          user:{select:{nickname:true}}
+          duty: { select: { name: true } },
+          user: { select: { nickname: true } },
         },
       });
       return resp;
@@ -65,15 +65,42 @@ export class ChampionService {
     }
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
+    try {
+      const resp = await this.prisma.champion.findUnique({ where: { id: id } });
+      return resp;
+    } catch (e) {
+      handleError(e);
+    }
     return `This action returns a #${id} champion`;
   }
 
-  update(id: string, updateChampionDto: UpdateChampionDto) {
-    return `This action updates a #${id} champion`;
+  async update(id: string, updateChampionDto: UpdateChampionDto) {
+    try {
+      const resp = await this.prisma.champion.update({
+        data: {
+          name: updateChampionDto.name,
+          description: updateChampionDto.description,
+          difficulty: updateChampionDto.difficulty,
+          imageUrl: updateChampionDto.imageUrl,
+          skills: updateChampionDto.skills.toLocaleString().toLocaleUpperCase(),
+          duty: { update: { name: updateChampionDto.dutyName } },
+        },
+        where: { id: id },
+      });
+
+      return resp;
+    } catch (e) {
+      handleError(e);
+    }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} champion`;
+  async remove(id: string) {
+    try {
+      await this.prisma.champion.delete({ where: { id: id } });
+      return { message: 'Campeão deletado com sucesso' };
+    } catch (e) {
+      handleError(e);
+    }
   }
 }

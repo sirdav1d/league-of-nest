@@ -1,8 +1,4 @@
-import {
-
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -26,7 +22,19 @@ export class UserService {
 
   async findAll() {
     try {
-      const resp: IUser[] = await this.prisma.user.findMany();
+      const resp = await this.prisma.user.findMany({
+        select: {
+          id: true,
+          email: true,
+          imageUrl: true,
+          name: true,
+          nickname: true,
+          role: true,
+          champions: {
+            select: { name: true, imageUrl: true, difficulty: true, id: true },
+          },
+        },
+      });
       if (resp.length < 1) {
         return { message: 'Não há usuários cadastrados' };
       } else {
