@@ -12,7 +12,7 @@ export class DutyService {
 
   async create(createDutyDto: CreateDutyDto) {
     const duty: Prisma.DutyCreateInput = {
-      name: createDutyDto.name.toLocaleUpperCase(),
+      name: createDutyDto.name.toUpperCase(),
       description: createDutyDto.description,
     };
 
@@ -55,7 +55,7 @@ export class DutyService {
     try {
       const resp = await this.prisma.duty.update({
         data: {
-          name: updateDutyDto.name.toLocaleUpperCase(),
+          name: updateDutyDto.name?.toUpperCase(),
           description: updateDutyDto.description,
         },
         where: { id: id },

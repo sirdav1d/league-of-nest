@@ -83,7 +83,7 @@ export class ChampionService {
           description: updateChampionDto.description,
           difficulty: updateChampionDto.difficulty,
           imageUrl: updateChampionDto.imageUrl,
-          skills: updateChampionDto.skills.toLocaleString().toLocaleUpperCase(),
+          skills: updateChampionDto.skills?.toLocaleString().toLocaleUpperCase(),
           duty: { update: { name: updateChampionDto.dutyName } },
         },
         where: { id: id },
