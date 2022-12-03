@@ -1,11 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { DutyService } from './duty.service';
 import { CreateDutyDto } from './dto/create-duty.dto';
 import { UpdateDutyDto } from './dto/update-duty.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-
-@ApiTags("Duty")
+@ApiTags('Duty')
 @Controller('duty')
 export class DutyController {
   constructor(private readonly dutyService: DutyService) {}

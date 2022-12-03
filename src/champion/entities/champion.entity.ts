@@ -4,5 +4,5 @@ import { IDuty } from 'src/duty/entities/duty.entity';
 
 export interface IChampion extends CreateChampionDto {
   id?: string;
-  duty?: IDuty|null;
+  duty?: IDuty | null;
 }
