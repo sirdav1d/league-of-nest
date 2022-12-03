@@ -32,7 +32,7 @@ export class DutyService {
           name: true,
           description: true,
           champions: {
-            select: { name: true, difficulty: true, imageUrl: true },
+            select: { name: true, difficulty: true, imageUrl: true, id:true },
           },
         },
       });
@@ -59,6 +59,7 @@ export class DutyService {
           description: updateDutyDto.description,
         },
         where: { id: id },
+        
       });
       return resp;
     } catch (e) {
