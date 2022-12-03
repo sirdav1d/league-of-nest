@@ -6,7 +6,7 @@ import {
   IsUrl,
   Max,
   IsUUID,
-  IsPositive
+  IsPositive,
 } from 'class-validator';
 
 export class CreateChampionDto {
@@ -65,7 +65,7 @@ export class CreateChampionDto {
 
   @ApiProperty({
     description: 'ID do usuário que favoritou o campeão',
-    example: '64d59ce3-921d-417b-898d-2326d959ca6b',
+    example: '["64d59ce3-921d-417b-898d-2326d959ca6b"]',
   })
-  userId?: string;
+  users?: string[];
 }

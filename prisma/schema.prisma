@@ -25,8 +25,7 @@ model Champion {
   id          String   @id @default(uuid())
   duty        Duty?    @relation(fields: [dutyId], references: [id])
   dutyId      String
-  user        User?    @relation(fields: [userId], references: [id])
-  userId      String
+  users       User[]
   name        String   @unique
   description String
   difficulty  Int

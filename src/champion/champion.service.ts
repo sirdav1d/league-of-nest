@@ -23,8 +23,13 @@ export class ChampionService {
           where: { name: createChampionDto.dutyName },
         },
       },
-      user: { connect: { id: createChampionDto.userId } },
+      users: {
+        connect: createChampionDto.users.map((userId) => ({
+          id: userId,
+        })),
+      },
     };
+
     try {
       const resp = await this.prisma.champion.create({
         data: champion,
@@ -36,7 +41,7 @@ export class ChampionService {
           name: true,
           skills: true,
           duty: { select: { name: true } },
-          user: { select: { nickname: true, role: true } },
+          users: { select: { nickname: true, role: true } },
         },
       });
       return resp;
@@ -56,7 +61,7 @@ export class ChampionService {
           imageUrl: true,
           skills: true,
           duty: { select: { name: true } },
-          user: { select: { nickname: true } },
+          users: { select: { nickname: true } },
         },
       });
       return resp;
@@ -83,8 +88,19 @@ export class ChampionService {
           description: updateChampionDto.description,
           difficulty: updateChampionDto.difficulty,
           imageUrl: updateChampionDto.imageUrl,
-          skills: updateChampionDto.skills?.toLocaleString().toLocaleUpperCase(),
+          skills: updateChampionDto.skills
+            ?.toLocaleString()
+            .toLocaleUpperCase(),
           duty: { update: { name: updateChampionDto.dutyName } },
+          users: {
+            connect: updateChampionDto.users?.map((userId) => ({
+              id: userId,
+            })),
+          },
+        },
+        include: {
+          duty: { select: { name: true } },
+          users: { select: { nickname: true } },
         },
         where: { id: id },
       });
