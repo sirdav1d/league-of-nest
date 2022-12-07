@@ -32,7 +32,7 @@ export class DutyService {
           name: true,
           description: true,
           champions: {
-            select: { name: true, difficulty: true, imageUrl: true, id:true },
+            select: { name: true, difficulty: true, imageUrl: true, id:true, duty: true },
           },
         },
       });
