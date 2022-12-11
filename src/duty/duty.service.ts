@@ -17,7 +17,23 @@ export class DutyService {
     };
 
     try {
-      const resp = await this.prisma.duty.create({ data: duty });
+      const resp = await this.prisma.duty.create({
+        data: duty,
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          champions: {
+            select: {
+              name: true,
+              difficulty: true,
+              imageUrl: true,
+              id: true,
+              duty: true,
+            },
+          },
+        },
+      });
       return resp;
     } catch (e) {
       handleError(e);
@@ -32,7 +48,13 @@ export class DutyService {
           name: true,
           description: true,
           champions: {
-            select: { name: true, difficulty: true, imageUrl: true, id:true, duty: true },
+            select: {
+              name: true,
+              difficulty: true,
+              imageUrl: true,
+              id: true,
+              duty: true,
+            },
           },
         },
       });
@@ -44,7 +66,23 @@ export class DutyService {
 
   async findOne(id: string) {
     try {
-      const resp = await this.prisma.duty.findUnique({ where: { id: id } });
+      const resp = await this.prisma.duty.findUnique({
+        where: { id: id },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          champions: {
+            select: {
+              name: true,
+              difficulty: true,
+              imageUrl: true,
+              id: true,
+              duty: true,
+            },
+          },
+        },
+      });
       return resp;
     } catch (e) {
       handleError(e);
@@ -59,7 +97,20 @@ export class DutyService {
           description: updateDutyDto.description,
         },
         where: { id: id },
-        
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          champions: {
+            select: {
+              name: true,
+              difficulty: true,
+              imageUrl: true,
+              id: true,
+              duty: true,
+            },
+          },
+        },
       });
       return resp;
     } catch (e) {

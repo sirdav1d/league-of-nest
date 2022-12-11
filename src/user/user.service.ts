@@ -57,10 +57,10 @@ export class UserService {
           role: true,
           champions: {
             select: {
-              name: true,
-              duty: { select: { name: true } },
-              imageUrl: true,
               id: true,
+              name: true,
+              duty: { select: { id: true, name: true } },
+              imageUrl: true,
             },
           },
         },
@@ -90,10 +90,10 @@ export class UserService {
             role: true,
             champions: {
               select: {
-                name: true,
-                duty: { select: { name: true } },
-                imageUrl: true,
                 id: true,
+                name: true,
+                duty: { select: {id: true, name: true } },
+                imageUrl: true,
               },
             },
           },
@@ -131,10 +131,10 @@ export class UserService {
             role: true,
             champions: {
               select: {
-                name: true,
-                duty: { select: { name: true } },
-                imageUrl: true,
                 id: true,
+                name: true,
+                duty: { select: {id:true, name: true } },
+                imageUrl: true,
               },
             },
           },
