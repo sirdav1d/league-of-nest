@@ -1,5 +1,6 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/auth.dto';
 import { LoginResponsDto } from './dto/auth.response.dto';
@@ -16,5 +17,16 @@ export class AuthController {
   })
   login(@Body() LoginDto: LoginDto): Promise<LoginResponsDto> {
     return this.authService.login(LoginDto);
+  }
+
+
+  @Get()
+  @UseGuards(AuthGuard())
+  @ApiOperation({
+    summary: 'Retorna o usuário logado no momento'
+  })
+  @ApiBearerAuth()
+  profile(){
+    return 'validado'
   }
 }
