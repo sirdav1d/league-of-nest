@@ -4,7 +4,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/error';
 import { CreateChampionDto } from './dto/create-champion.dto';
 import { UpdateChampionDto } from './dto/update-champion.dto';
-import { IChampion } from './entities/champion.entity';
 
 @Injectable()
 export class ChampionService {
@@ -40,8 +39,8 @@ export class ChampionService {
           imageUrl: true,
           name: true,
           skills: true,
-          duty: { select: { name: true } },
-          users: { select: { nickname: true, role: true } },
+          duty: { select: { id: true, name: true } },
+          users: { select: { id: true, nickname: true, role: true } },
         },
       });
       return resp;
@@ -60,8 +59,8 @@ export class ChampionService {
           difficulty: true,
           imageUrl: true,
           skills: true,
-          duty: { select: { name: true } },
-          users: { select: { nickname: true } },
+          duty: { select: { id: true, name: true } },
+          users: { select: { id: true, nickname: true } },
         },
       });
       return resp;
@@ -81,9 +80,8 @@ export class ChampionService {
           difficulty: true,
           imageUrl: true,
           skills: true,
-          duty: {select:{id: true, name: true}},
-          users: {select:{id: true, nickname: true}}
-
+          duty: { select: { id: true, name: true } },
+          users: { select: { id: true, nickname: true } },
         },
       });
       return resp;
@@ -112,8 +110,8 @@ export class ChampionService {
           },
         },
         include: {
-          duty: { select: { name: true } },
-          users: { select: { nickname: true } },
+          duty: { select: { id: true, name: true } },
+          users: { select: { id: true, nickname: true } },
         },
         where: { id: id },
       });
