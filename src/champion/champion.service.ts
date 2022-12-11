@@ -72,7 +72,20 @@ export class ChampionService {
 
   async findOne(id: string) {
     try {
-      const resp = await this.prisma.champion.findUnique({ where: { id: id } });
+      const resp = await this.prisma.champion.findUnique({
+        where: { id: id },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          difficulty: true,
+          imageUrl: true,
+          skills: true,
+          duty: {select:{id: true, name: true}},
+          users: {select:{id: true, nickname: true}}
+
+        },
+      });
       return resp;
     } catch (e) {
       handleError(e);
