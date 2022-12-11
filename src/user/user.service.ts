@@ -15,7 +15,7 @@ export class UserService {
     name: true,
     nickname: true,
     role: true,
-    password: false,
+    password: true,
     champions: {
       select: {
         name: true,
@@ -54,6 +54,7 @@ export class UserService {
           imageUrl: true,
           name: true,
           nickname: true,
+          password: true,
           role: true,
           champions: {
             select: {

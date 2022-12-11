@@ -8,7 +8,7 @@ import { DutyModule } from './duty/duty.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [PrismaModule, UserModule, ChampionModule, DutyModule, AuthModule],
+  imports: [PrismaModule, AuthModule, UserModule, ChampionModule, DutyModule],
   controllers: [AppController],
   providers: [AppService],
 })

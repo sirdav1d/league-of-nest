@@ -12,7 +12,7 @@ export class AuthController {
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: 'Fazer Login na plataforma, através de TOKEN de autenticação',
+    summary: 'Fazer Login na plataforma, recebendo um TOKEN de autenticação',
   })
   login(@Body() LoginDto: LoginDto): Promise<LoginResponsDto> {
     return this.authService.login(LoginDto);
