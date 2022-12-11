@@ -4,16 +4,41 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IUser } from './entities/user.entity';
 import { handleError } from 'src/utils/error';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
+  private UserSelect = {
+    id: true,
+    email: true,
+    imageUrl: true,
+    name: true,
+    nickname: true,
+    role: true,
+    password: false,
+    champions: {
+      select: {
+        name: true,
+        duty: { select: { name: true } },
+        imageUrl: true,
+        id: true,
+      },
+    },
+  };
+
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto) {
-    const user: IUser = createUserDto;
+  async create(createUserDto: CreateUserDto): Promise<IUser> {
+    const user: IUser = {
+      ...createUserDto,
+      password: await bcrypt.hash(createUserDto.password, 10),
+    };
+
     try {
-      const resp = await this.prisma.user.create({ data: user });
-      delete resp.password;
+      const resp = await this.prisma.user.create({
+        data: user,
+        select: this.UserSelect,
+      });
       return resp;
     } catch (e) {
       handleError(e);
@@ -31,7 +56,12 @@ export class UserService {
           nickname: true,
           role: true,
           champions: {
-            select: { name: true, imageUrl: true, difficulty: true, id: true },
+            select: {
+              name: true,
+              duty: { select: { name: true } },
+              imageUrl: true,
+              id: true,
+            },
           },
         },
       });
@@ -49,8 +79,25 @@ export class UserService {
     const validation = await this.isValidId(id);
     if (validation) {
       try {
-        const resp = await this.prisma.user.findUnique({ where: { id: id } });
-        delete resp.password;
+        const resp = await this.prisma.user.findUnique({
+          where: { id: id },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            imageUrl: true,
+            nickname: true,
+            role: true,
+            champions: {
+              select: {
+                name: true,
+                duty: { select: { name: true } },
+                imageUrl: true,
+                id: true,
+              },
+            },
+          },
+        });
         return resp;
       } catch (e) {
         handleError(e);
@@ -63,13 +110,35 @@ export class UserService {
   async update(id: string, updateUserDto: UpdateUserDto) {
     const validation = await this.isValidId(id);
     if (validation) {
-      const user = { ...updateUserDto };
+      const user: Partial<IUser> = {
+        ...updateUserDto,
+      };
+
+      if (user.password) {
+        user.password = await bcrypt.hash(user.password, 10);
+      }
+
       try {
         const resp = await this.prisma.user.update({
           data: user,
           where: { id: id },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            imageUrl: true,
+            nickname: true,
+            role: true,
+            champions: {
+              select: {
+                name: true,
+                duty: { select: { name: true } },
+                imageUrl: true,
+                id: true,
+              },
+            },
+          },
         });
-        delete resp.password;
         return resp;
       } catch (e) {
         handleError(e);
