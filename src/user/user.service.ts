@@ -92,7 +92,7 @@ export class UserService {
               select: {
                 id: true,
                 name: true,
-                duty: { select: {id: true, name: true } },
+                duty: { select: { id: true, name: true } },
                 imageUrl: true,
               },
             },
@@ -133,7 +133,7 @@ export class UserService {
               select: {
                 id: true,
                 name: true,
-                duty: { select: {id:true, name: true } },
+                duty: { select: { id: true, name: true } },
                 imageUrl: true,
               },
             },
