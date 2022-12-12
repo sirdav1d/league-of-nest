@@ -1,4 +1,5 @@
 
+
 <h1>League of Nest</h1>
 <p>Acesso a documentação: </p> https://league-of-nest.onrender.com/api
 
@@ -10,6 +11,7 @@
 
 ## Entidades
 
+![ENTIDADES](https://user-images.githubusercontent.com/97140028/207182665-4a464976-8191-46dc-94de-422a7e1339c6.png)
 
 ## Requisitos
 
