@@ -1,18 +1,11 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
+  Body, Controller, Delete, Get, Param, Patch, Post, UseGuards
 } from '@nestjs/common';
-import { DutyService } from './duty.service';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateDutyDto } from './dto/create-duty.dto';
 import { UpdateDutyDto } from './dto/update-duty.dto';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { DutyService } from './duty.service';
 
 @ApiTags('Duty')
 @UseGuards(AuthGuard())

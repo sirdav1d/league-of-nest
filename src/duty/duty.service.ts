@@ -4,7 +4,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/error';
 import { CreateDutyDto } from './dto/create-duty.dto';
 import { UpdateDutyDto } from './dto/update-duty.dto';
-import { IDuty } from './entities/duty.entity';
 
 @Injectable()
 export class DutyService {

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { DutyService } from './duty.service';
-import { DutyController } from './duty.controller';
-import { PrismaModule } from 'src/prisma/prisma.module';
 import { PassportModule } from '@nestjs/passport';
+import { PrismaModule } from 'src/prisma/prisma.module';
+import { DutyController } from './duty.controller';
+import { DutyService } from './duty.service';
 
 @Module({
   imports: [PrismaModule, PassportModule.register({ defaultStrategy: 'jwt' })],

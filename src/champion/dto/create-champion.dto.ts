@@ -1,12 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsString,
   IsNotEmpty,
   IsNumber,
+  IsPositive,
+  IsString,
   IsUrl,
   Max,
-  IsUUID,
-  IsPositive,
 } from 'class-validator';
 
 export class CreateChampionDto {
