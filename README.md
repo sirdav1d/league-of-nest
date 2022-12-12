@@ -1,13 +1,11 @@
-
-
 <h1>League of Nest</h1>
-<p>Acesso a documentação: </p> https://league-of-nest.onrender.com/api
+<p>Acesso a documentação: </p> <a href="https://league-of-nest.onrender.com/api" target="_blank">League of Nest<a>
 
 ##
 
-
 ## Description
-<p>Projeto feito em NodeJS, utilizando o Nest como framework. A plataforma permite ao usuário realizar login com autenticação JWT, relacionar usuários aos campeões e os campeões a suas respectivas funções. Cada entidade, (User, Champion e Duty) permite CRUD completo desde que usuário esteja logado, exceto o CRUD de Users, em que apenas o Administrador tem acesso.</p>
+
+Projeto proposto pela [Blue Editech](https://www.linkedin.com/school/blue-edtech/) e inspirado em [League of Legends](https://www.leagueoflegends.com/pt-br/), feito em NodeJS e utilizando o NestJS como framework. A plataforma permite ao usuário realizar login com autenticação JWT, relacionar usuários aos campeões e os campeões às suas respectivas funções. Cada entidade, (User, Champion e Duty) permite CRUD completo desde que usuário esteja logado, exceto o CRUD de User, em que apenas o Administrador tem acesso, com a "role" de admin.
 
 ## Entidades
 
@@ -16,17 +14,16 @@
 ## Requisitos
 
 <ul>
-<li>Validação de dados em todos os endpoints com class-validator;</li>
-<li>Status Code corretos em todos os endpoints;</li>
-<li>Persistência de Dados no SQL com Prisma;</li>
-<li>Formatação do código utilizando o Prettier/ESLint;</li>
-<li>Documentação dos endpoints com Swagger;</li>
-<li>Diagrama de relacionamentos do banco de dados;</li>
-<li>Cors habilitado;</li>
-<li>Deploy do projeto;</li>
-<li>Deploy do banco de dados.</li>
+    <li>Validação de dados em todos os endpoints com class-validator;</li>
+    <li>Status Code corretos em todos os endpoints;</li>
+    <li>Persistência de Dados no SQL com Prisma;</li>
+    <li>Formatação do código utilizando o Prettier/ESLint;</li>
+    <li>Documentação dos endpoints com Swagger;</li>
+    <li>Diagrama de relacionamentos do banco de dados;</li>
+    <li>Cors habilitado;</li>
+    <li>Deploy do projeto;</li>
+    <li>Deploy do banco de dados.</li>
 </ul>
-
 
 ## Installation
 
@@ -64,11 +61,9 @@ $ npm run test:cov
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+## Author
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Linkedin - [David Diniz Dos Santos](https://www.linkedin.com/in/david-dev-/)
 
 ## License
 
