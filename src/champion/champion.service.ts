@@ -15,7 +15,7 @@ export class ChampionService {
       description: createChampionDto.description,
       difficulty: createChampionDto.difficulty,
       imageUrl: createChampionDto.imageUrl,
-      skills: createChampionDto.skills.toLocaleString().toLocaleUpperCase(),
+      skills: createChampionDto.skills.map((s)=> s.toLocaleUpperCase()),
       duty: {
         connectOrCreate: {
           create: { name: createChampionDto.dutyName, description: '' },

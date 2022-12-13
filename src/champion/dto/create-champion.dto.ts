@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsArray,
   IsNotEmpty,
   IsNumber,
   IsPositive,
@@ -45,12 +46,12 @@ export class CreateChampionDto {
   })
   imageUrl: string;
 
-  @IsString()
+  @IsArray()
   @IsNotEmpty()
   @ApiProperty({
     description: 'Lista de habilidades do campeão.',
     example:
-      'FURTO DE ESSÊNCIA,ORBE DA ILUSÃO, FOGO DE RAPOSA,ENCANTO, ÍMPETO ESPIRITUAL',
+      ["FURTO DE ESSÊNCIA","ORBE DA ILUSÃO", "FOGO DE RAPOSA,ENCANTO", "ÍMPETO ESPIRITUAL"],
   })
   skills: string[];
 
@@ -64,7 +65,7 @@ export class CreateChampionDto {
 
   @ApiProperty({
     description: 'ID do usuário que favoritou o campeão',
-    example: '["64d59ce3-921d-417b-898d-2326d959ca6b"]',
+    example: ["64d59ce3-921d-417b-898d-2326d959ca6b"],
   })
   users?: string[];
 }
