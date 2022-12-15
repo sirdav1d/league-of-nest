@@ -1,8 +1,16 @@
 import {
-  Body, Controller, Delete, Get, Param, Patch, Post, UseGuards
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { RolesGuard } from 'src/roles/roles.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
@@ -21,7 +29,7 @@ export class UserController {
   }
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(), new RolesGuard())
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'Busca todos os usuários',
@@ -31,7 +39,7 @@ export class UserController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(), new RolesGuard())
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'Busca um usuário pelo ID',
@@ -41,7 +49,7 @@ export class UserController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(), new RolesGuard())
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'Edita um usuário pelo ID',
@@ -51,7 +59,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(), new RolesGuard())
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'Deleta um usuário pelo ID',
