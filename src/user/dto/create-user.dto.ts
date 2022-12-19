@@ -37,8 +37,7 @@ export class CreateUserDto {
   })
   password: string;
 
-  @IsNotEmpty()
-  @IsString()
+
   @ApiProperty({
     description: 'Nível de usabilidade',
     example: 'admin',
