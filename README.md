@@ -5,7 +5,7 @@
 
 ## Description
 
-Projeto proposto pela [Blue Editech](https://www.linkedin.com/school/blue-edtech/) e inspirado em [League of Legends](https://www.leagueoflegends.com/pt-br/), feito em NodeJS e utilizando o NestJS como framework. A plataforma permite ao usuário realizar login com autenticação JWT, relacionar usuários aos campeões e os campeões às suas respectivas funções. Cada entidade, (User, Champion e Duty) permite CRUD completo desde que usuário esteja logado, exceto o CRUD de User, em que apenas o Administrador tem acesso, com a "role" de admin.
+Projeto proposto pela [Blue Editech](https://www.linkedin.com/school/blue-edtech/) e inspirado em [League of Legends](https://www.leagueoflegends.com/pt-br/), feito em NodeJS e utilizando o NestJS como framework. A plataforma permite ao usuário realizar login com autenticação JWT, relacionar e parmanecer os dados com Prisma e  PostgreSQL. Podemos manipular cada entidade, (User, Champion e Duty) fazendo CRUD completo, desde que usuário esteja logado, exceto o CRUD de User, em que apenas o Administrador tem acesso, com a "role" de admin.
 
 ## Entidades
 
