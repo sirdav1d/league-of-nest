@@ -5,6 +5,7 @@ import { LoginDto } from './dto/auth.dto';
 import { LoginResponsDto } from './dto/auth.response.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { IUser } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -36,6 +37,34 @@ export class AuthService {
         user,
       };
     } catch (e) {
+      handleError(e);
+    }
+  }
+
+  async profile(user: IUser) {
+    try {
+      const response = await this.prisma.user.findUnique({
+        where: { email: user.email },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          nickname: true,
+          imageUrl: true,
+          role: true,
+          champions: {
+            select: {
+              id: true,
+              name: true,
+              imageUrl: true,
+              duty: { select: { id: true, name: true } },
+            },
+          },
+        },
+      });
+      return response;
+    } catch (e) {
+      console.log(e);
       handleError(e);
     }
   }
